@@ -49,7 +49,7 @@ function getLocation() {
 }
 
 function Map() {
-    MapboxGL.locationManager.start();
+    // MapboxGL.locationManager.start();
     requestLocationPermission();
     return (
         <View style={styles.container}>
@@ -57,10 +57,10 @@ function Map() {
                 <MapboxGL.Camera
                     followZoomLevel={12}
                     followUserLocation
-                    followUserMode="compass"
+                    followUserMode="course"
                 />
 
-                <MapboxGL.UserLocation />
+                <MapboxGL.UserLocation showsUserHeadingIndicator={true} />
             </MapboxGL.MapView>
         </View>
     );
