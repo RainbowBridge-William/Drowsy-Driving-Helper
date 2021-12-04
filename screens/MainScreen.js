@@ -8,6 +8,7 @@ const MainScreen = () => {
     return (
         <SafeAreaView style={tw `bg-white h-full w-full`}>
             <Timer></Timer>
+            <Map></Map>
         </SafeAreaView>
     )
 }

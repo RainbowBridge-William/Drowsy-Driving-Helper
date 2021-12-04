@@ -4,7 +4,7 @@ import tw from "twrnc";
 
 const Timer = () => {
     return (
-        <View style={tw`bg-gray-200 flex justify-center items-center h-15/100`}>
+        <View style={tw`bg-gray-200 flex justify-center items-center h-15/100 mt-2`}>
             <Text style={tw`text-3xl`}>You have drived</Text>
             <Text style={tw`text-3xl`}>1 h: 12 min: 30 s</Text>
         </View>
