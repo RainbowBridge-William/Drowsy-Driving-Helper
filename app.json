@@ -2,6 +2,9 @@
   "expo": {
     "name": "drowsy-driving-helper",
     "slug": "drowsy-driving-helper",
+    "plugins": [
+      "@react-native-mapbox-gl/maps"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,7 +26,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.drowsy.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
