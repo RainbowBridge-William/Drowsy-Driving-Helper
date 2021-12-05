@@ -1,10 +1,11 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import tw from "twrnc";
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import { PermissionsAndroid, StyleSheet, Text, View } from "react-native";
 import Geolocation from "react-native-geolocation-service";
+import getNearestRestArea from "./getNearestRestArea";
 
-let userAlt, userLat;
+const
 
 MapboxGL.setAccessToken(
     "pk.eyJ1Ijoid2lsbGlhbXdhbmcwNjAyIiwiYSI6ImNrd3Jtc2wwODB3MDgyb3A0enp1ZWcycXYifQ.gLTdJRa1iYiQWVurp0WBQQ"
@@ -25,6 +26,7 @@ async function requestLocationPermission() {
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             // if granted, store user's current location
             getLocation();
+            console.log(userLng);
         } else {
             console.log("Location permission denied");
         }
@@ -36,9 +38,12 @@ async function requestLocationPermission() {
 function getLocation() {
     Geolocation.getCurrentPosition(
         (position) => {
-            userAlt = position.coords.altitude;
-            userLat = position.coords.latitude;
-            console.log(userAlt, userLat);
+            let userLng = position.coords.longitude;
+            let userLat = position.coords.latitude;
+            getNearestRestArea(userLng, userLat)
+            .then((res) => {
+                // console.log(res);
+            })
         },
         (error) => {
             // See error code charts below.
@@ -49,14 +54,33 @@ function getLocation() {
 }
 
 function Map() {
+    const cameraRef = useRef(undefined);
+    // function resetCamera() {
+    //     setTimeout(() => {
+    //         console.log("change")
+    //         // cameraRef.current.flyTo([userLng, userLat]);
+    //         cameraRef.current.setCamera({
+    //             zoomLevel: 12,
+    //             followUserLocation: true,
+    //             followUserMode: "course",
+    //             onUserTrackingModeChange{resetCamera}
+    //         });
+    //     }, 3000);
+    // }
     // MapboxGL.locationManager.start();
     requestLocationPermission();
     return (
         <View style={styles.container}>
-            <MapboxGL.MapView style={styles.map}>
+            <MapboxGL.MapView
+                style={styles.map}
+                zoomEnabled={false}
+                scrollEnabled={false}
+                pitchEnabled={false}
+                rotateEnabled={false}>
                 <MapboxGL.Camera
-                    followZoomLevel={12}
-                    followUserLocation
+                    ref={(r) => (cameraRef.current = r)}
+                    followZoomLevel={15}
+                    followUserLocation={true}
                     followUserMode="course"
                 />
 

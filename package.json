@@ -11,6 +11,7 @@
   "dependencies": {
     "@react-native-mapbox-gl/maps": "^8.5.0",
     "@reduxjs/toolkit": "^1.6.2",
+    "@turf/turf": "^6.5.0",
     "expo": "~43.0.2",
     "expo-splash-screen": "~0.13.5",
     "expo-status-bar": "~1.1.0",
@@ -26,6 +27,7 @@
     "react-native-screens": "~3.8.0",
     "react-native-web": "0.17.1",
     "tailwind-react-native-classnames": "^1.5.1",
+    "turf": "^3.0.14",
     "twrnc": "^2.1.1"
   },
   "devDependencies": {
