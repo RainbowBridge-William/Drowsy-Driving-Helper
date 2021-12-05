@@ -5,7 +5,12 @@ import { PermissionsAndroid, StyleSheet, Text, View } from "react-native";
 import Geolocation from "react-native-geolocation-service";
 import getNearestRestArea from "./getNearestRestArea";
 import { useDispatch, useSelector } from "react-redux";
-import { selectDestination, selectOrigin, setDestination, setOrigin } from "../slices/navSlice";
+import {
+    selectDestination,
+    selectOrigin,
+    setDestination,
+    setOrigin,
+} from "../slices/navSlice";
 
 MapboxGL.setAccessToken(
     "pk.eyJ1Ijoid2lsbGlhbXdhbmcwNjAyIiwiYSI6ImNrd3Jtc2wwODB3MDgyb3A0enp1ZWcycXYifQ.gLTdJRa1iYiQWVurp0WBQQ"
@@ -40,10 +45,9 @@ export function getLocation() {
             let userLng = position.coords.longitude;
             let userLat = position.coords.latitude;
             dispatch(setOrigin(position.coords));
-            await getNearestRestArea(userLng, userLat)
-            .then((res) => {
-                dispatch(setDestination(res))
-            })
+            await getNearestRestArea(userLng, userLat).then((res) => {
+                dispatch(setDestination(res));
+            });
         },
         (error) => {
             // See error code charts below.
@@ -53,11 +57,14 @@ export function getLocation() {
     );
 }
 
-function Map() {
+function Map(props) {
+    let rest = props.rest;
+    console.log(rest);
     const cameraRef = useRef(undefined);
     const destination = useSelector(selectDestination);
+    console.log(destination);
     const origin = useSelector(selectOrigin);
-    
+
     // function resetCamera() {
     //     setTimeout(() => {
     //         console.log("change")
@@ -72,7 +79,6 @@ function Map() {
     // }
     // MapboxGL.locationManager.start();
     requestLocationPermission();
-    getLocation();
     return (
         <View style={styles.container}>
             <MapboxGL.MapView
@@ -88,9 +94,9 @@ function Map() {
                     followUserLocation={true}
                     followUserMode="course"
                 />
-                {/* <MapboxGL.MarkerView
-                    coordinate={[destination.longitude, destination.latitude]}
-                /> */}
+                {rest == true && <MapboxGL.MarkerView
+                    coordinate={[destination.lng, destination.lat]}
+                />}
                 <MapboxGL.UserLocation showsUserHeadingIndicator={true} />
             </MapboxGL.MapView>
         </View>
