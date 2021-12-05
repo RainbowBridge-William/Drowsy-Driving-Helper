@@ -36,11 +36,11 @@ async function requestLocationPermission() {
 export function getLocation() {
     const dispatch = useDispatch();
     Geolocation.getCurrentPosition(
-        (position) => {
+        async (position) => {
             let userLng = position.coords.longitude;
             let userLat = position.coords.latitude;
             dispatch(setOrigin(position.coords));
-            getNearestRestArea(userLng, userLat)
+            await getNearestRestArea(userLng, userLat)
             .then((res) => {
                 dispatch(setDestination(res))
             })
