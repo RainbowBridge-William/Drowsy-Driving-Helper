@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Button } from 'react-native';
 import tw from "twrnc";
 import Timer from '../components/Timer';
-import Map from '../components/Map';
+import Map, { getLocation } from '../components/Map';
 
 const MainScreen = () => {
     return (
-        <SafeAreaView style={tw `bg-white h-full w-full`}>
+        <View style={tw `bg-white h-full w-full`}>
+            
             <Timer></Timer>
             <Map></Map>
-        </SafeAreaView>
+            {/* <Button style={tw `h-4 w-4`} title="nav test" onPress={getLocation}></Button> */}
+        </View>
     )
 }
 

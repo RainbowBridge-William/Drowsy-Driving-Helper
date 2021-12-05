@@ -4,8 +4,8 @@ import MapboxGL from "@react-native-mapbox-gl/maps";
 import { PermissionsAndroid, StyleSheet, Text, View } from "react-native";
 import Geolocation from "react-native-geolocation-service";
 import getNearestRestArea from "./getNearestRestArea";
-
-const
+import { useDispatch, useSelector } from "react-redux";
+import { selectDestination, selectOrigin, setDestination, setOrigin } from "../slices/navSlice";
 
 MapboxGL.setAccessToken(
     "pk.eyJ1Ijoid2lsbGlhbXdhbmcwNjAyIiwiYSI6ImNrd3Jtc2wwODB3MDgyb3A0enp1ZWcycXYifQ.gLTdJRa1iYiQWVurp0WBQQ"
@@ -24,9 +24,7 @@ async function requestLocationPermission() {
             }
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            // if granted, store user's current location
-            getLocation();
-            console.log(userLng);
+            console.log("Location permission granted");
         } else {
             console.log("Location permission denied");
         }
@@ -35,14 +33,16 @@ async function requestLocationPermission() {
     }
 }
 
-function getLocation() {
+export function getLocation() {
+    const dispatch = useDispatch();
     Geolocation.getCurrentPosition(
         (position) => {
             let userLng = position.coords.longitude;
             let userLat = position.coords.latitude;
+            dispatch(setOrigin(position.coords));
             getNearestRestArea(userLng, userLat)
             .then((res) => {
-                // console.log(res);
+                dispatch(setDestination(res))
             })
         },
         (error) => {
@@ -55,6 +55,9 @@ function getLocation() {
 
 function Map() {
     const cameraRef = useRef(undefined);
+    const destination = useSelector(selectDestination);
+    const origin = useSelector(selectOrigin);
+    
     // function resetCamera() {
     //     setTimeout(() => {
     //         console.log("change")
@@ -69,6 +72,7 @@ function Map() {
     // }
     // MapboxGL.locationManager.start();
     requestLocationPermission();
+    getLocation();
     return (
         <View style={styles.container}>
             <MapboxGL.MapView
@@ -76,14 +80,17 @@ function Map() {
                 zoomEnabled={false}
                 scrollEnabled={false}
                 pitchEnabled={false}
-                rotateEnabled={false}>
+                rotateEnabled={false}
+                compassEnabled={false}>
                 <MapboxGL.Camera
                     ref={(r) => (cameraRef.current = r)}
                     followZoomLevel={15}
                     followUserLocation={true}
                     followUserMode="course"
                 />
-
+                {/* <MapboxGL.MarkerView
+                    coordinate={[destination.longitude, destination.latitude]}
+                /> */}
                 <MapboxGL.UserLocation showsUserHeadingIndicator={true} />
             </MapboxGL.MapView>
         </View>
