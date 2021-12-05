@@ -62,7 +62,10 @@ function Map(props) {
     console.log(rest);
     const cameraRef = useRef(undefined);
     const destination = useSelector(selectDestination);
-    console.log(destination);
+    if (rest == true) {
+        console.log(destination);
+        console.log(destination.lng);
+    }
     const origin = useSelector(selectOrigin);
 
     // function resetCamera() {
@@ -94,9 +97,9 @@ function Map(props) {
                     followUserLocation={true}
                     followUserMode="course"
                 />
-                {rest == true && <MapboxGL.MarkerView
+                {/* {rest == true && <MapboxGL.MarkerView
                     coordinate={[destination.lng, destination.lat]}
-                />}
+                />} */}
                 <MapboxGL.UserLocation showsUserHeadingIndicator={true} />
             </MapboxGL.MapView>
         </View>
