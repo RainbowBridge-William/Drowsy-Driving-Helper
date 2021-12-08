@@ -9,13 +9,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectDestination, selectOrigin, setDestination, setOrigin } from "../slices/navSlice";
 
 const MainScreen = () => {
-    const [rest, setRest] = useState(false);
+    // const [rest, setRest] = useState(false);
     const dispatch = useDispatch();
     return (
         <View style={tw `bg-white h-full w-full`}>
             <Timer></Timer>
             <Button title="track" onPress={ () => {
-                setRest(true);
+                // setRest(true);
+                console.log("data fetched")
                 Geolocation.getCurrentPosition(
                     async (position) => {
                         let userLng = position.coords.longitude;
@@ -34,7 +35,7 @@ const MainScreen = () => {
                 );
             }
             } />
-            <Map rest={rest}></Map>
+            <Map></Map>
             {/* <Button style={tw `h-4 w-4`} title="nav test" onPress={getLocation}></Button> */}
         </View>
     )

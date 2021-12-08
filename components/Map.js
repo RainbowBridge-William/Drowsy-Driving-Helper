@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import tw from "twrnc";
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import { PermissionsAndroid, StyleSheet, Text, View } from "react-native";
@@ -57,16 +57,18 @@ export function getLocation() {
     );
 }
 
-function Map(props) {
-    let rest = props.rest;
-    console.log(rest);
+function Map() {
     const cameraRef = useRef(undefined);
+    // console.log(props.rest);
     const destination = useSelector(selectDestination);
-    if (rest == true) {
-        console.log(destination);
-        console.log(destination.lng);
-    }
-    const origin = useSelector(selectOrigin);
+    useEffect(() => {
+        console.log("rerender map");
+        if (destination) {
+            console.log(destination);
+            console.log(destination.lng);
+        }
+    })
+    // const origin = useSelector(selectOrigin);
 
     // function resetCamera() {
     //     setTimeout(() => {
