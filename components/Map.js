@@ -64,6 +64,13 @@ function Map(props) {
     const destination = useSelector(selectDestination);
     const start = useSelector(selectOrigin);
     const [geoJSON, setJSON] = useState();
+    const routeStyle = {
+        lineColor: "#3887be",
+        lineWidth: 5,
+        lineOpacity: 0.75,
+        lineJoin: "round",
+        lineCap: "round",
+    };
 
     useEffect(() => {
         console.log("rerender map");
@@ -116,7 +123,7 @@ function Map(props) {
                         <MapboxGL.ShapeSource id="line1" shape={geoJSON}>
                             <MapboxGL.LineLayer
                                 id="linelayer1"
-                                style={{ lineColor: "red" }}
+                                style={routeStyle}
                             />
                         </MapboxGL.ShapeSource>
                     </>

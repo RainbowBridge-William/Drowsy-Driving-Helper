@@ -29,13 +29,7 @@ export default async function getGeoJSON(start, end) {
         },
     };
 
-    const routeStyle = {
-        lineColor: "#3887be",
-        lineWidth: 5,
-        lineOpacity: 0.75,
-        lineJoin: "round",
-        lineCap: "round",
-    };
+
     return geojson;
 }
 
