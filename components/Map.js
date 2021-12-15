@@ -11,6 +11,7 @@ import {
     setDestination,
     setOrigin,
 } from "../slices/navSlice";
+import getGeoJSON from "./Route";
 
 MapboxGL.setAccessToken(
     "pk.eyJ1Ijoid2lsbGlhbXdhbmcwNjAyIiwiYSI6ImNrd3Jtc2wwODB3MDgyb3A0enp1ZWcycXYifQ.gLTdJRa1iYiQWVurp0WBQQ"
@@ -57,18 +58,22 @@ export function getLocation() {
     );
 }
 
-function Map() {
+function Map(props) {
     const cameraRef = useRef(undefined);
-    // console.log(props.rest);
+    const rest = props.rest;
     const destination = useSelector(selectDestination);
+    const start = useSelector(selectOrigin);
+    const [geoJSON, setJSON] = useState();
+
     useEffect(() => {
         console.log("rerender map");
-        if (destination) {
-            console.log(destination);
-            console.log(destination.lng);
+        if (rest == true && destination && start) {
+            getGeoJSON(
+                [start.longitude, start.latitude],
+                [destination.lng, destination.lat]
+            ).then((res) => setJSON(res));
         }
-    })
-    // const origin = useSelector(selectOrigin);
+    }, [start, destination]);
 
     // function resetCamera() {
     //     setTimeout(() => {
@@ -84,24 +89,39 @@ function Map() {
     // }
     // MapboxGL.locationManager.start();
     requestLocationPermission();
+
     return (
         <View style={styles.container}>
             <MapboxGL.MapView
                 style={styles.map}
-                zoomEnabled={false}
-                scrollEnabled={false}
-                pitchEnabled={false}
-                rotateEnabled={false}
-                compassEnabled={false}>
+                // zoomEnabled={false}
+                // scrollEnabled={false}
+                // pitchEnabled={false}
+                // rotateEnabled={false}
+                // compassEnabled={false}
+            >
                 <MapboxGL.Camera
                     ref={(r) => (cameraRef.current = r)}
                     followZoomLevel={15}
                     followUserLocation={true}
                     followUserMode="course"
                 />
-                {/* {rest == true && <MapboxGL.MarkerView
-                    coordinate={[destination.lng, destination.lat]}
-                />} */}
+                {geoJSON && (
+                    <>
+                        <MapboxGL.PointAnnotation
+                            id="nearestRestArea"
+                            title={destination.name}
+                            coordinate={[destination.lng, destination.lat]}
+                        />
+                        <MapboxGL.ShapeSource id="line1" shape={geoJSON}>
+                            <MapboxGL.LineLayer
+                                id="linelayer1"
+                                style={{ lineColor: "red" }}
+                            />
+                        </MapboxGL.ShapeSource>
+                    </>
+                )}
+
                 <MapboxGL.UserLocation showsUserHeadingIndicator={true} />
             </MapboxGL.MapView>
         </View>
