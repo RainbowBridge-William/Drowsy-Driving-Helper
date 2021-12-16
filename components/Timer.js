@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
+import { color } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 import tw from "twrnc";
 
 function Timer(props) {
@@ -9,7 +10,7 @@ function Timer(props) {
     const [counter, setCounter] = useState(0);
 
     useEffect(() => {
-        if (counter < 7201) {
+        if (counter < 3601) {
             setTimeout(() => {
                 const secondCounter = counter % 60;
                 const minuteCounter = Math.floor((counter % 3600) / 60);
@@ -24,12 +25,20 @@ function Timer(props) {
         }
     })
 
+    function handleFinnishRest() {
+        props.setRest(false);
+        setSecond("00")
+        setMinute("00")
+        setHour("0")
+        setCounter(0)
+    }
+
     return (
         <View style={tw` flex justify-center items-center flex-1`}>
             <Text style={tw`text-3xl mt-2`}>You have drived</Text>
             <Text
-                style={tw`text-3xl`}>{`${hour} h: ${minute} min: ${second} s`}</Text>
-            <Text>{counter}</Text>
+                style={tw`text-2xl`}>{`${hour} h: ${minute} min: ${second} s`}</Text>
+            {props.rest && <Button style={tw`w-full`} title="Rested" onPress={handleFinnishRest}/>}
         </View>
     );
 }

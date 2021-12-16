@@ -113,7 +113,7 @@ function Map(props) {
                     followUserLocation={true}
                     followUserMode="course"
                 />
-                {geoJSON && (
+                {geoJSON && props.rest && (
                     <>
                         <MapboxGL.PointAnnotation
                             id="nearestRestArea"

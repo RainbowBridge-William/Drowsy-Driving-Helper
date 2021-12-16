@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectDestination, selectOrigin, setDestination, setOrigin } from "../slices/navSlice";
 
 const MainScreen = () => {
-    const [rest, setRest] = useState(false);
+    const [rest, setRest] = useState(false); // you should rest == false
     const dispatch = useDispatch();
 
     function handleTimesUP() {
@@ -32,13 +32,12 @@ const MainScreen = () => {
     }
 
     return (
-        <View style={tw `bg-white h-full w-full`}>
-            <Timer callBack={handleTimesUP}></Timer>
-            <Button title="Rest" onPress={handleTimesUP} />
+        <View style={tw`bg-white h-full w-full`}>
+            <Timer callBack={handleTimesUP} setRest={setRest} rest={rest}></Timer>
             <Map rest={rest}></Map>
             {/* <Button style={tw `h-4 w-4`} title="nav test" onPress={getLocation}></Button> */}
         </View>
-    )
+    );
 }
 
 export default MainScreen
