@@ -101,11 +101,11 @@ function Map(props) {
         <View style={styles.container}>
             <MapboxGL.MapView
                 style={styles.map}
-                // zoomEnabled={false}
-                // scrollEnabled={false}
-                // pitchEnabled={false}
-                // rotateEnabled={false}
-                // compassEnabled={false}
+                zoomEnabled={false}
+                scrollEnabled={false}
+                pitchEnabled={false}
+                rotateEnabled={false}
+                compassEnabled={false}
             >
                 <MapboxGL.Camera
                     ref={(r) => (cameraRef.current = r)}

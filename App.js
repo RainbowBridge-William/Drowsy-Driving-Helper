@@ -22,6 +22,6 @@ const styles = StyleSheet.create({
         backgroundColor: "grey",
         alignItems: "center",
         justifyContent: "center",
-        // height: "100%"
+        height: "100%"
     },
 });

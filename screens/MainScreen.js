@@ -35,7 +35,6 @@ const MainScreen = () => {
         <View style={tw`bg-white h-full w-full`}>
             <Timer style={tw`h-40/100`} callBack={handleTimesUP} setRest={setRest} rest={rest}></Timer>
             <Map style={tw`h-60/100`} rest={rest}></Map>
-            {/* <Button style={tw `h-4 w-4`} title="nav test" onPress={getLocation}></Button> */}
         </View>
     );
 }
