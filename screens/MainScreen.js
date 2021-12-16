@@ -33,8 +33,8 @@ const MainScreen = () => {
 
     return (
         <View style={tw `bg-white h-full w-full`}>
-            <Timer></Timer>
-            <Button title="track" onPress={ handleTimesUP} />
+            <Timer callBack={handleTimesUP}></Timer>
+            <Button title="Rest" onPress={handleTimesUP} />
             <Map rest={rest}></Map>
             {/* <Button style={tw `h-4 w-4`} title="nav test" onPress={getLocation}></Button> */}
         </View>
