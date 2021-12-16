@@ -19,7 +19,7 @@ function Timer(props) {
                 setSecond(secondCounter < 10 ? `0${secondCounter}` : secondCounter);
                 setMinute(minuteCounter < 10 ? `0${minuteCounter}` : minuteCounter);
                 setHour(hourCounter);
-            }, 0.1);
+            }, 0.1); //just for demo, should be 1000
         } else {
             props.callBack();
         }
@@ -37,6 +37,13 @@ function Timer(props) {
         <View style={tw` flex justify-center items-center flex-1`}>
             <Text style={tw`text-3xl mt-2`}>You have drived</Text>
             <Text
+
+
+
+
+
+
+
                 style={tw`text-2xl`}>{`${hour} h: ${minute} min: ${second} s`}</Text>
             {props.rest && <Text>Please follow the route to nearest rest area</Text>}
             {props.rest && <Button style={tw`w-full`} title="Rested" onPress={handleFinnishRest}/>}
