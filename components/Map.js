@@ -2,14 +2,10 @@ import React, { useRef, useState, useEffect } from "react";
 import tw from "twrnc";
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import { PermissionsAndroid, StyleSheet, Text, View } from "react-native";
-import Geolocation from "react-native-geolocation-service";
-import getNearestRestArea from "./getNearestRestArea";
 import { useDispatch, useSelector } from "react-redux";
 import {
     selectDestination,
     selectOrigin,
-    setDestination,
-    setOrigin,
 } from "../slices/navSlice";
 import getGeoJSON from "./Route";
 
