@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
-import { color } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 import tw from "twrnc";
 
 function Timer(props) {
@@ -36,15 +35,7 @@ function Timer(props) {
     return (
         <View style={tw` flex justify-center items-center flex-1`}>
             <Text style={tw`text-3xl mt-2`}>You have drived</Text>
-            <Text
-
-
-
-
-
-
-
-                style={tw`text-2xl`}>{`${hour} h: ${minute} min: ${second} s`}</Text>
+            <Text style={tw`text-2xl`}>{`${hour} h: ${minute} min: ${second} s`}</Text>
             {props.rest && <Text>Please follow the route to nearest rest area</Text>}
             {props.rest && <Button style={tw`w-full`} title="Rested" onPress={handleFinnishRest}/>}
         </View>

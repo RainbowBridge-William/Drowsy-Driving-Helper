@@ -1,6 +1,5 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import MapboxGL from "@react-native-mapbox-gl/maps";
 
 export default async function getGeoJSON(start, end) {
     const token =
