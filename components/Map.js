@@ -39,24 +39,6 @@ async function requestLocationPermission() {
     }
 }
 
-export function getLocation() {
-    const dispatch = useDispatch();
-    Geolocation.getCurrentPosition(
-        async (position) => {
-            let userLng = position.coords.longitude;
-            let userLat = position.coords.latitude;
-            dispatch(setOrigin(position.coords));
-            await getNearestRestArea(userLng, userLat).then((res) => {
-                dispatch(setDestination(res));
-            });
-        },
-        (error) => {
-            console.log(error.code, error.message);
-        },
-        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-    );
-}
-
 function Map(props) {
     const cameraRef = useRef(undefined);
     const rest = props.rest;
@@ -100,11 +82,11 @@ function Map(props) {
         <View style={styles.container}>
             <MapboxGL.MapView
                 style={styles.map}
-                zoomEnabled={false}
-                scrollEnabled={false}
-                pitchEnabled={false}
-                rotateEnabled={false}
-                compassEnabled={false}
+                // zoomEnabled={false}
+                // scrollEnabled={false}
+                // pitchEnabled={false}
+                // rotateEnabled={false}
+                // compassEnabled={false}
             >
                 <MapboxGL.Camera
                     ref={(r) => (cameraRef.current = r)}
