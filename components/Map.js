@@ -72,7 +72,8 @@ function Map(props) {
     //     }, 3000);
     // }
     // MapboxGL.locationManager.start();
-    requestLocationPermission();
+
+    useEffect(requestLocationPermission, []);
 
     return (
         <View style={styles.container}>
