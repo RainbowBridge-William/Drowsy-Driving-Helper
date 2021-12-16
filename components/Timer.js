@@ -38,6 +38,7 @@ function Timer(props) {
             <Text style={tw`text-3xl mt-2`}>You have drived</Text>
             <Text
                 style={tw`text-2xl`}>{`${hour} h: ${minute} min: ${second} s`}</Text>
+            {props.rest && <Text>Please follow the route to nearest rest area</Text>}
             {props.rest && <Button style={tw`w-full`} title="Rested" onPress={handleFinnishRest}/>}
         </View>
     );
